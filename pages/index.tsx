@@ -8,26 +8,18 @@ const inter = Inter({subsets: ['latin']})
 
 export default function Home() {
 
-    const [name, setName] = useState('')
-    const [password, setPassword] = useState('')
-    const [password2, setPassword2] = useState('')
-    const [profession, setProfession] = useState('')
+    const [data, setData] = useState({
+        name: '',
+        password: '',
+        password2: '',
+        profession: ''
+    })
+
     const [agree, setAgree] = useState(false)
 
-    const handleName = (event: ChangeEvent<HTMLInputElement>) => {
-        setName(event.target.value)
-    }
-
-    const handlePassword = (event: ChangeEvent<HTMLInputElement>) => {
-        setPassword(event.target.value)
-    }
-
-    const handlePassword2 = (event: ChangeEvent<HTMLInputElement>) => {
-        setPassword2(event.target.value)
-    }
-
-    const handleProfession = (event: ChangeEvent<HTMLSelectElement>) => {
-        setProfession(event.target.value)
+    const handleChange = (event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>) => {
+        const {name, value} = event.target
+        setData({...data, [name]: value})
     }
 
     const handleAgree = (event: ChangeEvent<HTMLInputElement>) => {
@@ -36,7 +28,7 @@ export default function Home() {
 
     const handleSubmit = (event: SyntheticEvent) => {
         event.preventDefault()
-        alert(`Uživatel ${name} je ${profession} developer. Jeho heslo je ${password}`)
+        alert(`Uživatel ${data.name} je ${data.profession} developer. Jeho heslo je ${data.password2}`)
     }
 
   return (
@@ -53,25 +45,25 @@ export default function Home() {
               <div>
                   <label>
                       Name:
-                      <input id="name" type="text" value={name} onChange={handleName}/>
+                      <input id="name" name="name" type="text" value={data.name} onChange={handleChange}/>
                   </label>
               </div>
               <div>
                   <label>
                       Password:
-                      <input id="password" type="password" value={password} onChange={handlePassword}/>
+                      <input id="password" name="password" type="password" value={data.password} onChange={handleChange}/>
                   </label>
               </div>
               <div>
                   <label>
                       Password 2:
-                      <input id="password2" type="password" value={password2} onChange={handlePassword2}/>
+                      <input id="password2" name="password2" type="password" value={data.password2} onChange={handleChange}/>
                   </label>
               </div>
               <div>
                   <label>
                       Profession:
-                      <select id="profession" value={profession} onChange={handleProfession}>
+                      <select id="profession" name="profession" value={data.profession} onChange={handleChange}>
                           <option value="frontend">Frontend</option>
                           <option value="backend">Backend</option>
                       </select>
@@ -80,11 +72,11 @@ export default function Home() {
               <div>
                   <label>
                       Souhlasím s podmínkami:
-                      <input id="agree" type="checkbox" onChange={handleAgree}/>
+                      <input id="agree" name="agree" type="checkbox" onChange={handleAgree}/>
                   </label>
               </div>
               <div>
-                  <button disabled={!agree || password !== password2} type="submit">Submit</button>
+                  <button disabled={!agree || data.password !== data.password2} type="submit">Submit</button>
               </div>
           </form>
       </main>
