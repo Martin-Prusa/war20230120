@@ -2,7 +2,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { Inter } from '@next/font/google'
 import styles from '@/styles/Home.module.css'
-import {ChangeEvent, SetStateAction, useState} from "react";
+import {ChangeEvent, SetStateAction, SyntheticEvent, useState} from "react";
 
 const inter = Inter({subsets: ['latin']})
 
@@ -26,7 +26,7 @@ export default function Home() {
         setPassword2(event.target.value)
     }
 
-    const handleProfession = (event: ChangeEvent<HTMLInputElement>) => {
+    const handleProfession = (event: ChangeEvent<HTMLSelectElement>) => {
         setProfession(event.target.value)
     }
 
@@ -34,7 +34,7 @@ export default function Home() {
         setAgree(event.target.checked)
     }
 
-    const handleSubmit = (event: Event) => {
+    const handleSubmit = (event: SyntheticEvent) => {
         event.preventDefault()
         alert(`Uživatel ${name} je ${profession} developer. Jeho heslo je ${password}`)
     }
